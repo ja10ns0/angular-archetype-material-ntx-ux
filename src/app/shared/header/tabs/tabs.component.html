@@ -1,0 +1,8 @@
+<nav mat-tab-nav-bar *ngIf="router.url != '/home'">
+  <a mat-tab-link *ngFor="let tab of tabs"
+      [routerLink]="path + tab.pathSegment"
+      [routerLinkActive] #rla="routerLinkActive"
+      [active]="rla.isActive">
+      {{tab.label}}
+  </a>
+</nav>
