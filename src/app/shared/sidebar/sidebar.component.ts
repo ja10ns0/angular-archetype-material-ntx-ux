@@ -18,8 +18,8 @@ export class SidebarComponent implements OnInit {
   }
 
   setPath(value: string) {
-    this.tabsHeaderService.setPath(value);
     this.sidenavService.menu.close();
+    this.tabsHeaderService.setPath(value);
   }
 
 }

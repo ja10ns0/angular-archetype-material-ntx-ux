@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ComponentFactoryResolver, Injector, ComponentRef } from '@angular/core';
+import { PanelService } from '../../../shared/services/panel.service';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { DummyComponent } from '../dummy/dummy.component';
 
 @Component({
   selector: 'app-panels-examples',
@@ -7,9 +10,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PanelsExamplesComponent implements OnInit {
 
-  constructor() { }
+  public panelWidths = [100,80,60,40];
 
-  ngOnInit() {
+  private dummyComponent: ComponentRef<DummyComponent>;
+
+  constructor(
+    private panelService: PanelService,
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private injector: Injector
+  ) { }
+
+  ngOnInit() {}
+
+  onButtonClick(width: string) {
+    this.panelService.panelWidth(width);
+    const data = this.panelService.createData({ width: width });
+    const portal = new ComponentPortal(DummyComponent, undefined, data);
+
+    this.dummyComponent = this.panelService.attachComponent(
+      portal, this.componentFactoryResolver, this.injector);
+
+    this.panelService.open();
   }
-
 }

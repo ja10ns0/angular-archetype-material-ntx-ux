@@ -38,6 +38,7 @@ export class TabsComponent implements OnInit {
     this.tabsHeaderService.getPath().subscribe((val: string) => {
       this.path = val;
     });
+    console.log('init tabs');
   }
 
   // ngOnDestroy() {
